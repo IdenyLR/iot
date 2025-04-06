@@ -1,0 +1,106 @@
+/* FormLogin.css - Coherencia con el estilo Register */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+}
+
+.form-login h2 {
+  text-align: center;
+  color: #00b4a0;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.error-message {
+  font-weight: 500;
+  background-color: rgba(255, 80, 80, 0.1);
+  color: #ff6e6e;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #a0a0a0;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid #2a3a38;
+  border-radius: 6px;
+  background: #1e1e1e;
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+.form-group input:focus {
+  border-color: #00b4a0;
+  box-shadow: 0 0 0 2px rgba(0, 180, 160, 0.3);
+  outline: none;
+}
+
+.security-question {
+  font-size: 1rem;
+  color: #a0a0a0;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+button {
+  background-color: #00897b;
+  color: #ffffff;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  width: 100%;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  background-color: #00b4a0;
+}
+
+button:disabled {
+  background-color: #2a3a38;
+  color: #6a6a6a;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.register-link p {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #a0a0a0;
+}
+
+.register-link a {
+  color: #00b4a0;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

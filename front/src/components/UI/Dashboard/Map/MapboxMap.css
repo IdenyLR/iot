@@ -1,0 +1,305 @@
+/* Contenedor principal del mapa */
+.mapbox-container {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  position: relative;
+}
+
+/* Estilos del marcador */
+/* Estilos del marcador - Versión mejorada en negro */
+.marker-container {
+  cursor: pointer;
+  transform: translate(-12px, -24px);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8)); /* Sombra blanca para contraste */
+}
+
+/* Asegurar que el SVG herede el color */
+.marker-container svg {
+  color: #00b4a0 !important; /* Negro puro */
+  fill: #242727 !important; /* Relleno negro */
+  stroke: #00b4a0 !important; /* Borde negro */
+}
+
+/* Ajustes principales del popup - TAMAÑO AUMENTADO */
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  color: #000000 !important;
+  width: 380px; /* Ancho aumentado */
+  max-height: 500px; /* Altura máxima aumentada */
+  overflow-y: auto;
+}
+
+/* Ajuste de posición del popup */
+.mapboxgl-popup {
+  transform: translateY(-20px) !important;
+  max-width: none !important; /* Permite que el popup sea más ancho */
+}
+
+/* Estilo del botón de cerrar */
+.mapboxgl-popup-close-button {
+  font-size: 18px;
+  color: #4b5563;
+  right: 10px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 10;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  transition: all 0.2s ease;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background: rgba(229, 231, 235, 0.9);
+  color: #1f2937;
+  transform: scale(1.05);
+}
+
+/* Contenido del popup */
+.popup-content {
+  width: 100%;
+  background-color: white;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Cabecera del popup */
+.popup-header {
+  padding: 20px 24px 16px; /* Padding aumentado */
+  border-bottom: 2px solid #f0f2f5;
+  background: linear-gradient(to right, #f0f9ff, #e6fffa);
+  position: relative;
+}
+
+.popup-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px; /* Línea decorativa más larga */
+  height: 2px;
+  background: linear-gradient(to right, #10b981, #3b82f6);
+}
+
+.popup-title {
+  font-size: 20px; /* Tamaño de fuente aumentado */
+  font-weight: 700;
+  color: #0a665ba8;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  position: relative;
+  display: inline-block;
+}
+
+/* Sección de información principal */
+.popup-info-section {
+  padding: 14px 24px; /* Padding aumentado */
+  border-bottom: 1px solid #f3f4f6;
+  background-color: #ffffff;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px; /* Espaciado aumentado */
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #eaecef;
+  position: relative;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-icon {
+  width: 20px; /* Iconos más grandes */
+  height: 20px;
+  color: #64748b;
+  margin-right: 16px; /* Espaciado aumentado */
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.info-icon-green {
+  color: #10b981;
+}
+
+.info-icon-blue {
+  color: #3b82f6;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.info-label {
+  font-size: 13px; /* Tamaño de fuente aumentado */
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 1px; 
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.info-value {
+  font-size: 16px; /* Tamaño de fuente aumentado */
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* Sección de datos del sensor */
+.sensor-data-section {
+  padding: 18px 24px 22px; /* Padding aumentado */
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+}
+
+.sensor-data-title {
+  font-size: 16px; /* Tamaño de fuente aumentado */
+  font-weight: 700;
+  color: #334155;
+  margin: 0 0 18px 0; /* Espaciado aumentado */
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+  display: inline-block;
+}
+
+.sensor-data-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px; /* Línea decorativa más larga */
+  height: 2px;
+  background: linear-gradient(to right, #10b981, #3b82f6);
+}
+
+.sensor-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px; /* Espaciado aumentado */
+}
+
+.sensor-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px; /* Padding aumentado */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sensor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #10b981, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sensor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.sensor-card:hover::before {
+  opacity: 1;
+}
+
+.sensor-icon-container {
+  width: 40px; /* Tamaño aumentado */
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px; /* Espaciado aumentado */
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.sensor-icon {
+  width: 18px; /* Iconos más grandes */
+  height: 18px;
+  color: rgb(14, 14, 14);
+}
+
+.sensor-icon-red {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.sensor-icon-blue {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.sensor-icon-indigo {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+}
+
+.sensor-icon-amber {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.sensor-data {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sensor-label {
+  font-size: 12px; /* Tamaño de fuente aumentado */
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 6px; /* Espaciado aumentado */
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.sensor-value {
+  font-size: 16px; /* Tamaño de fuente aumentado */
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.01em;
+}
+
+/* Scrollbar personalizada */
+.mapboxgl-popup-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mapboxgl-popup-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.mapboxgl-popup-content::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 6px;
+}
+
+.mapboxgl-popup-content::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}

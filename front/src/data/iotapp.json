@@ -1,0 +1,75 @@
+{
+    "sensores": {
+      "humedad": 70,
+      "temperatura": 35,
+      "lluvia": 1.2,
+      "sol": 70
+    },
+    "parcelas": [
+      {
+        "id": 1,
+        "nombre": "Parcela 1",
+        "ubicacion": "Zona Norte",
+        "responsable": "Juan Pérez",
+        "tipo_cultivo": "Tomate",
+        "ultimo_riego": "2025-03-14 07:19:12",
+        "sensor": {
+          "humedad": 35.5,
+          "temperatura": 24.5,
+          "lluvia": 5,
+          "sol": 40 
+        },
+        "latitud": 21.06998,
+        "longitud": -86.88101
+      },
+      {
+        "id": 2,
+        "nombre": "Parcela 2",
+        "ubicacion": "Zona Sur",
+        "responsable": "Ana Martínez",
+        "tipo_cultivo": "Maíz",
+        "ultimo_riego": "2025-03-14 07:19:12",
+        "sensor": {
+          "humedad": 80.5,
+          "temperatura": 35,
+          "lluvia": 0,
+          "sol": 85
+        },
+        "latitud": 21.05548,
+        "longitud": -86.87217
+      },
+      {
+        "id": 3,
+        "nombre": "Parcela 3",
+        "ubicacion": "Zona Este",
+        "responsable": "Carlos Gómez",
+        "tipo_cultivo": "Papa",
+        "ultimo_riego": "2025-03-14 07:19:12",
+        "sensor": {
+          "humedad": 55.1,
+          "temperatura": 27.3,
+          "lluvia": 2.5,
+          "sol": 50
+        },
+        "latitud": 21.05572,
+        "longitud": -86.86942
+      },
+      {
+        "id": 4,
+        "nombre": "Parcela 4",
+        "ubicacion": "Zona Oeste",
+        "responsable": "María López",
+        "tipo_cultivo": "Arroz",
+        "ultimo_riego": "2025-03-14 07:19:12",
+        "sensor": {
+          "humedad": 63.7,
+          "temperatura": 18.5,
+          "lluvia": 5,
+          "sol": 50
+        },
+        "latitud": 21.06750,
+        "longitud": -86.87157
+      }
+    ]
+  }
+  

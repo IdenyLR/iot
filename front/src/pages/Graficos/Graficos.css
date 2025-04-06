@@ -1,0 +1,303 @@
+/* Estructura principal */
+.graficos-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* Sidebar Fijo */
+.sidebar {
+  width: 260px;
+  background-color: rgba(18, 18, 18, 0.97);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0, 180, 160, 0.25);
+  padding: 2rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Contenedor principal */
+.graficos-container {
+  flex: 1;
+  width: calc(100% - 260px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2.5rem;
+  margin-left: 260px;
+  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+}
+
+.graficos-container h1 {
+  text-align: center;
+
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  border-bottom: 2px solid rgba(0, 180, 160, 0.3);
+  padding-bottom: 0.75rem;
+}
+
+/* Grid de gráficos */
+.graficos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.grafico-box {
+  background-color: rgba(30, 30, 30, 0.85);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.grafico-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 180, 160, 0.2);
+}
+
+.grafico-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(0, 180, 160, 0.7), rgba(0, 180, 160, 0.3));
+  opacity: 0.8;
+}
+
+/* Selector de intervalo */
+.intervalo-selector {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(30, 30, 30, 0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 180, 160, 0.15);
+}
+
+.intervalo-selector label {
+  font-weight: 500;
+  color: #c0c0c0;
+}
+
+.intervalo-selector select {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background-color: rgba(40, 40, 40, 0.9);
+  color: #e0e0e0;
+  border: 1px solid rgba(0, 180, 160, 0.4);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.intervalo-selector select:hover {
+  border-color: rgba(0, 180, 160, 0.6);
+  background-color: rgba(45, 45, 45, 0.9);
+}
+
+.intervalo-selector select:focus {
+  border-color: rgba(0, 180, 160, 0.8);
+  box-shadow: 0 0 0 2px rgba(0, 180, 160, 0.2);
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  padding: 1.2rem;
+  background-color: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(0, 180, 160, 0.25);
+  color: #c0c0c0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: auto;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Última actualización */
+.ultima-actualizacion {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  color: #4caf50;
+  font-weight: 500;
+  text-align: right;
+  padding: 0.5rem 1rem;
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 6px;
+  display: inline-block;
+  margin-left: auto;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.ultima-actualizacion::before {
+  content: "•";
+  display: inline-block;
+  margin-right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Datos actuales */
+.datos-actuales {
+  background: rgba(30, 30, 30, 0.8);
+  padding: 1.25rem;
+  border-radius: 10px;
+  margin: 0 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 180, 160, 0.15);
+}
+
+.datos-actuales .dato-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.datos-actuales .dato-item:hover {
+  background-color: rgba(45, 45, 45, 0.9);
+  transform: translateY(-2px);
+  border-color: rgba(0, 180, 160, 0.3);
+}
+
+.datos-actuales .dato-label {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  margin-bottom: 0.5rem;
+}
+
+.datos-actuales .dato-valor {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00b4a0;
+}
+
+.datos-actuales .dato-unidad {
+  font-size: 0.8rem;
+  color: #c0c0c0;
+  margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .graficos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .graficos-container {
+    margin-left: 220px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .graficos-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1.25rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 180, 160, 0.25);
+  }
+
+  .graficos-container {
+    padding: 1.5rem;
+    margin-left: 0;
+  }
+
+  .graficos-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .datos-actuales {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+
+  .intervalo-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .intervalo-selector select {
+    width: 100%;
+  }
+
+  .ultima-actualizacion {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .graficos-container {
+    padding: 1rem;
+  }
+
+  .graficos-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .datos-actuales {
+    grid-template-columns: 1fr;
+  }
+}
+

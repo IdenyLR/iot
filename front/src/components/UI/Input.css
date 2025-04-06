@@ -1,0 +1,28 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+  }
+  
+  .input-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-color); 
+  }
+
+  .custom-input {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    background-color: transparent; 
+    border: 2px solid var(--accent-color);
+    color: var(--text-color); 
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .custom-input:focus {
+    border-color: var(--text-color);
+  }
+  

@@ -1,0 +1,231 @@
+/* Estructura principal - Manteniendo la organización original */
+.eliminadas-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+/* Contenedor principal - Manteniendo la estructura original */
+.eliminadas-container {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  color: #e0e0e0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Título con estilo de Graficos */
+.eliminadas-container h1 {
+  text-align: center;
+  margin-top: 0.7rem;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid rgba(0, 180, 160, 0.3);
+  padding-bottom: 0.75rem;
+}
+
+/* Última actualización - Estilo de Graficos */
+.ultima-actualizacion {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  color: #4caf50;
+  font-weight: 500;
+  text-align: right;
+  padding: 0.5rem 1rem;
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 6px;
+  display: inline-block;
+  margin-left: auto;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.ultima-actualizacion::before {
+  content: "•";
+  display: inline-block;
+  margin-right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Manteniendo la estructura original del grid */
+.eliminadas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjetas de parcelas con estética de Graficos */
+.parcela-card {
+  background-color: rgba(30, 30, 30, 0.85);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.parcela-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 180, 160, 0.2);
+}
+
+.parcela-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(0, 180, 160, 0.7), rgba(0, 180, 160, 0.3));
+  opacity: 0.8;
+}
+
+.parcela-card h2 {
+  margin-bottom: 0.6rem;
+  color: #00b4a0;
+  font-size: 1.3rem;
+}
+
+.parcela-card p {
+  margin: 0.5rem 0;
+  color: #e0e0e0;
+}
+
+.parcela-card p strong {
+  color: #c0c0c0;
+  font-weight: 500;
+}
+
+/* Estado vacío con estética de Graficos */
+.vacío-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 180, 160, 0.15);
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.vacío-icon {
+  font-size: 3rem;
+  color: #00b4a0;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.vacío-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.vacío-subtext {
+  font-size: 1rem;
+  color: #ddd;
+}
+
+/* Estados de carga y error con estética de Graficos */
+.loading,
+.error-message {
+  background-color: rgba(30, 30, 30, 0.7);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 180, 160, 0.15);
+}
+
+.loading {
+  color: #00b4a0;
+  font-weight: 500;
+  position: relative;
+}
+
+.loading::after {
+  content: "...";
+  position: absolute;
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60%,
+  100% {
+    content: "...";
+  }
+}
+
+.error-message {
+  color: #f44336;
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+/* Footer con estética de Graficos */
+.footer {
+  width: 100%;
+  padding: 1.2rem;
+  background-color: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(0, 180, 160, 0.25);
+  color: #c0c0c0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: auto;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive - Manteniendo la estructura original */
+@media (max-width: 768px) {
+  .eliminadas-dashboard {
+    flex-direction: column;
+  }
+
+  .eliminadas-container {
+    padding: 1.5rem;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .eliminadas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

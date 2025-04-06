@@ -1,0 +1,75 @@
+/* InfoCard.css - Estilo oscuro con acentos turquesa */
+.info-card {
+  background-color: #1e1e1e; /* Fondo de tarjeta oscuro */
+  color: #e0e0e0; /* Texto claro */
+  padding: 1.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #2a3a38; /* Borde sutil */
+  transition: all 0.3s ease;
+  min-width: 180px;
+  text-align: center;
+  position: relative;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 180, 160, 0.15);
+  border-color: rgba(0, 180, 160, 0.4);
+}
+
+.card-icon {
+  margin-bottom: 1rem;
+}
+
+.card-icon svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  stroke-width: 1.5;
+}
+
+/* Colores específicos para cada tipo de icono */
+.card-icon .thermometer-icon {
+  color: #ff6b6b; /* Rojo suave */
+}
+
+.card-icon .droplets-icon {
+  color: #66b3ff; /* Azul claro */
+}
+
+.card-icon .cloud-rain-icon {
+  color: #a5b4fc; /* Lila suave */
+}
+
+.card-icon .sun-icon {
+  color: #ffd166; /* Amarillo dorado */
+}
+
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: #a0a0a0; /* Gris claro para el título */
+  letter-spacing: 0.5px;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00b4a0; /* Turquesa brillante para el valor */
+  line-height: 1.2;
+}
+
+/* Variante opcional para destacar tarjetas importantes */
+.info-card.highlight {
+  background: linear-gradient(135deg, #1e1e1e 0%, #1a3a34 100%);
+  border-color: #00b4a0;
+}
+
+.info-card.highlight .card-value {
+  text-shadow: 0 0 8px rgba(0, 180, 160, 0.3);
+}
