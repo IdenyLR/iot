@@ -5,7 +5,7 @@ export class CreateUsuarioDto {
   correo: string;
 
   @IsOptional()
-  @Matches(/^\+?[0-9]{10,15}$/, { message: 'El teléfono debe contener entre 10 y 15 dígitos, y puede incluir un prefijo +' })
+  @Matches(/^\+?[0-9]{8,15}$/, { message: 'El teléfono debe contener entre 8 y 15 dígitos, y puede incluir un prefijo +' })
   telefono?: string;
 
   @IsNotEmpty({ message: 'La contraseña no puede estar vacía' })
@@ -27,7 +27,7 @@ export class CreateUsuarioDto {
 
   @IsNotEmpty({ message: 'La respuesta de seguridad no puede estar vacía' })
   @IsString({ message: 'La respuesta debe ser una cadena de texto' })
-  @Length(5, 100, { message: 'La respuesta de seguridad debe tener entre 5 y 100 caracteres' })
+  @Length(4, 100, { message: 'La respuesta de seguridad debe tener entre 4 y 100 caracteres' })
   respuesta: string;
 }
 

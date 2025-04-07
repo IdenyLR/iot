@@ -206,7 +206,7 @@ button[type="submit"]:disabled {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.1s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -349,7 +349,6 @@ button:disabled {
 
 .shuffle-button:hover {
   color: #00b4a0;
-  transform: rotate(90deg);
 }
 
 /* Pregunta seleccionada */
@@ -442,6 +441,7 @@ button:disabled {
   padding: 0;
   margin-left: auto;
   transition: color 0.2s;
+  width: 1.5rem;
 }
 
 .toggle-answer-visibility:hover {

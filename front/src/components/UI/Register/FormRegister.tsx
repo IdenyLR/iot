@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom"
 import { registerUser } from "../../../services/usuarioService"
 import Input from "../Input"
 import { Link } from "react-router-dom"
-import {Shield, ShieldAlert, ShieldCheck, Lock, Shuffle } from "lucide-react"
+import {Eye, EyeOff, Shield, ShieldAlert, ShieldCheck, Lock, Shuffle } from "lucide-react"
 import "./FormRegister.css"
 
-// Preguntas de seguridad organizadas por temas
 const securityQuestionsByTheme = {
   personal: {
     name: "Personal",
@@ -88,48 +87,43 @@ const FormRegister: React.FC = () => {
     question: "",
     answer: "",
   })
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [answerError, setAnswerError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [selectedTheme, setSelectedTheme] = useState<string>("personal");
+  const [securityLevel, setSecurityLevel] = useState<string>("medio");
+  const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState<string>("")
-  const [successMessage, setSuccessMessage] = useState<string>("")
-  const [passwordError, setPasswordError] = useState<string>("")
-  const [answerError, setAnswerError] = useState<string>("")
-  const [isFormValid, setIsFormValid] = useState<boolean>(false)
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-  const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [showAnswer, setShowAnswer] = useState<boolean>(false)
-  const [selectedTheme, setSelectedTheme] = useState<string>("personal")
-  const [securityLevel, setSecurityLevel] = useState<string>("medio")
-
-  const navigate = useNavigate()
-
-  // Función para escapar caracteres especiales en regex
   function escapeRegExp(string: string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
   }
 
-  // Expresión regular para validar contraseña
-  const passwordRegex = new RegExp(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[${escapeRegExp(allowedSpecialChars)}]).{8,}$`)
+  const passwordRegex = new RegExp(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[${escapeRegExp(allowedSpecialChars)}]).{8,}$`);
 
-  // Inicializar la pregunta de seguridad al cargar el componente
   useEffect(() => {
     generateRandomQuestion(selectedTheme)
   }, [])
 
   useEffect(() => {
     validateForm()
-  }, [formData, answerError, passwordError])
+  }, [formData, answerError, passwordError, emailError, phoneError, nameError]);
 
-  // Generar una pregunta aleatoria del tema seleccionado
   const generateRandomQuestion = (theme: string) => {
     const themeQuestions = securityQuestionsByTheme[theme as keyof typeof securityQuestionsByTheme].questions
     const randomIndex = Math.floor(Math.random() * themeQuestions.length)
     const randomQuestion = themeQuestions[randomIndex]
-
     setFormData((prev) => ({
       ...prev,
       question: randomQuestion,
     }))
-
     setSecurityLevel(securityQuestionsByTheme[theme as keyof typeof securityQuestionsByTheme].securityLevel)
   }
 
@@ -145,23 +139,51 @@ const FormRegister: React.FC = () => {
       ...prev,
       [name]: value,
     }))
-
     if (name === "password") {
       validatePassword(value)
     }
     if (name === "answer") {
       validateAnswer(value)
     }
-  }
+    if (name === "email") {
+      validateEmail(value);
+    }
+    if (name === "phone") {
+      validatePhone(value);
+    }
+    if (name === "name") {
+      validateName(value);
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    if (!email) {
+      setEmailError("El correo electrónico no puede estar vacío")
+      return
+    }
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setEmailError(emailValid ? "" : "El correo electrónico no es válido");
+  };
+
+  const validatePhone = (phone: string) => {
+    if (!phone) {
+      setPhoneError("El teléfono no puede estar vacío")
+      return
+    }
+    if (phone.length <10) {
+      setPhoneError("El teléfono debe tener al menos 10 dígitos")
+      return
+    }
+    const phoneValid = /^[0-9]{10,15}$/.test(phone);
+    setPhoneError(phoneValid ? "" : "El teléfono debe contener entre 8 y 15 dígitos");
+  };
 
   const validatePassword = (password: string) => {
     if (!password) {
-      setPasswordError("")
+      setPasswordError("Ingresa una contraseña")
       return
     }
-
     const errors = []
-
     if (password.length < 8) {
       errors.push("al menos 8 caracteres")
     }
@@ -174,23 +196,29 @@ const FormRegister: React.FC = () => {
     if (!/[0-9]/.test(password)) {
       errors.push("un número")
     }
-
     const specialCharsRegex = new RegExp(`[${escapeRegExp(allowedSpecialChars)}]`)
     if (!specialCharsRegex.test(password)) {
       errors.push(`un símbolo (${allowedSpecialChars.split("").join(" ")})`)
     }
-
     setPasswordError(errors.length > 0 ? `La contraseña debe contener: ${errors.join(", ")}` : "")
   }
 
+  const validateName = (name: string) => {
+    if (!name) {
+      setNameError("El nombre no puede estar vacío")
+      return;
+    }
+    const nameValid = name.trim().length >= 3;
+    setNameError(nameValid ? "" : "El nombre debe tener al menos 3 caracteres");
+  };
+
   const validateAnswer = (answer: string) => {
     if (!answer) {
-      setAnswerError("")
+      setAnswerError("La respuesta de seguridad no puede estar vacía")
       return
     }
-
-    if (answer.trim().length < 3) {
-      setAnswerError("La respuesta debe tener al menos 3 caracteres")
+    if (answer.trim().length < 4) {
+      setAnswerError("La respuesta debe tener al menos 4 caracteres")
     } else {
       setAnswerError("")
     }
@@ -202,19 +230,22 @@ const FormRegister: React.FC = () => {
     const phoneValid = /^[0-9]{8,15}$/.test(phone)
     const nameValid = name.trim().length >= 3
     const questionValid = question.trim().length > 0
-    const answerValid = answer.trim().length >= 3
+    const answerValid = answer.trim().length >= 5
     const passwordValid = passwordRegex.test(password)
-
+    
     setIsFormValid(
       emailValid &&
-        phoneValid &&
-        nameValid &&
-        questionValid &&
-        answerValid &&
-        passwordValid &&
-        !passwordError &&
-        !answerError,
-    )
+      phoneValid &&
+      nameValid &&
+      questionValid &&
+      answerValid &&
+      passwordValid &&
+      !passwordError &&
+      !answerError &&
+      !emailError &&
+      !phoneError &&
+      !nameError 
+    );
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -222,18 +253,22 @@ const FormRegister: React.FC = () => {
     setErrorMessage("")
     setSuccessMessage("")
     setIsSubmitting(true)
-
-    // Validación final antes de enviar
-    validatePassword(formData.password)
-    validateAnswer(formData.answer)
+    
+    // Validar todos los campos antes de enviar
+    validateName(formData.name);
+    validatePhone(formData.phone);
+    validateEmail(formData.email);
+    validatePassword(formData.password);
+    validateAnswer(formData.answer);
+    
     validateForm()
-
+    
     if (!isFormValid) {
       setErrorMessage("Por favor completa todos los campos correctamente")
       setIsSubmitting(false)
       return
     }
-
+    
     try {
       const newUser = {
         correo: formData.email,
@@ -243,11 +278,8 @@ const FormRegister: React.FC = () => {
         nombre: formData.name,
         telefono: formData.phone,
       }
-
       await registerUser(newUser)
-
       setSuccessMessage("Registrado correctamente. Redirigiendo...")
-
       setFormData({
         name: "",
         phone: "",
@@ -255,10 +287,9 @@ const FormRegister: React.FC = () => {
         password: "",
         question: "",
         answer: "",
-      })
-
+      });
       setTimeout(() => {
-        navigate("/") // Redirige a la página principal ("/")
+        navigate("/") 
       }, 2000)
     } catch (error: any) {
       console.error("Error en registro:", error)
@@ -284,11 +315,9 @@ const FormRegister: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form-register animate-fade-in">
-      <h2>Registro de Usuario</h2>
-
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-
+      
       <div className="form-group">
         <Input
           label="Nombre:"
@@ -299,8 +328,9 @@ const FormRegister: React.FC = () => {
           required
           minLength={3}
         />
+        {nameError && <div className="field-error">{nameError}</div>}
       </div>
-
+      
       <div className="form-group">
         <Input
           label="Teléfono:"
@@ -310,14 +340,23 @@ const FormRegister: React.FC = () => {
           onChange={handleChange}
           required
           pattern="[0-9]{8,15}"
-          title="Mínimo 8 dígitos, solo números"
+          title="Mínimo 10 dígitos, solo números"
         />
+        {phoneError && <div className="field-error">{phoneError}</div>}
       </div>
-
+      
       <div className="form-group">
-        <Input label="Correo:" type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <Input 
+          label="Correo:" 
+          type="email" 
+          name="email" 
+          value={formData.email} 
+          onChange={handleChange} 
+          required 
+        />
+        {emailError && <div className="field-error">{emailError}</div>}
       </div>
-
+      
       <div className="form-group security-theme-group">
         <div className="question-header">
           <label>Tema de pregunta de seguridad:</label>
@@ -341,7 +380,7 @@ const FormRegister: React.FC = () => {
           </span>
         </div>
       </div>
-
+      
       <div className="form-group">
         <div className="question-container">
           <label>Pregunta de seguridad:</label>
@@ -360,12 +399,17 @@ const FormRegister: React.FC = () => {
           <span className="question-text">{formData.question}</span>
         </div>
       </div>
-
+      
       <div className="form-group">
         <div className="answer-header">
           <label>Respuesta:</label>
-          <button type="button" className="toggle-answer-visibility" onClick={() => setShowAnswer(!showAnswer)}>
-            {showAnswer ? "Ocultar respuesta" : "Mostrar respuesta"}
+          <button 
+            type="button" 
+            className="toggle-answer-visibility" 
+            onClick={() => setShowAnswer(!showAnswer)}
+            title={showAnswer ? "Ocultar respuesta" : "Mostrar respuesta"}
+          >
+            {showAnswer ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         <div className="secret-input-container">
@@ -375,10 +419,9 @@ const FormRegister: React.FC = () => {
             value={formData.answer}
             onChange={handleChange}
             required
-            minLength={3}
+            minLength={4}
             className="secret-input"
           />
-          
         </div>
         <div className="secret-mode-indicator">
           <Lock size={14} />
@@ -386,12 +429,17 @@ const FormRegister: React.FC = () => {
         </div>
         {answerError && <div className="field-error">{answerError}</div>}
       </div>
-
+      
       <div className="form-group">
         <div className="answer-header">
           <label>Contraseña:</label>
-          <button type="button" className="toggle-answer-visibility" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+          <button 
+            type="button" 
+            className="toggle-answer-visibility" 
+            onClick={() => setShowPassword(!showPassword)}
+            title={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+          >
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
         <div className="secret-input-container">
@@ -403,7 +451,6 @@ const FormRegister: React.FC = () => {
             required
             className="secret-input"
           />
-          
         </div>
         {passwordError && <div className="field-error">{passwordError}</div>}
         <div className="password-requirements">
@@ -419,7 +466,7 @@ const FormRegister: React.FC = () => {
           </ul>
         </div>
       </div>
-
+      
       <button type="submit" disabled={!isFormValid || isSubmitting}>
         {isSubmitting ? (
           <>
@@ -430,7 +477,7 @@ const FormRegister: React.FC = () => {
           "Registrar"
         )}
       </button>
-
+      
       <div className="login-link">
         <p>
           ¿Ya tienes una cuenta? <Link to="/">Inicia sesión</Link>
